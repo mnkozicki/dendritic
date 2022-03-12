@@ -1,1 +1,1 @@
-sudo apt-get install -y libglib2.0-0 libsm6 libxext6
+apt update && apt install libglib2.0-0 libopencv-dev -y
