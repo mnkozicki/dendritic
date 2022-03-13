@@ -57,9 +57,11 @@ def post2(request):
     handler = Operations.Operations()
     if request.method == 'POST':
         if request.FILES['file']:
+            print("Log: File received")
             file = request.FILES['file']
         else:
             msg = "No file sent"
+            print("Log: No file sent")
             return HttpResponse(json.dumps(msg))
         brand = request.POST.get("brnd")
         disc = request.POST.get("disc")
@@ -69,12 +71,13 @@ def post2(request):
         
         if file:
             # flname = secure_filename(file.filename)
+            print("Log: Image file exists")
             image = cv2.imdecode(np.frombuffer(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
             image = cv2.rotate(image,rotateCode=cv2.ROTATE_90_CLOCKWISE)
             resizeDIm = (int(image.shape[1]*20/100),int(image.shape[0]*20/100))
             image = cv2.resize(image,resizeDIm,interpolation=cv2.INTER_AREA)
             image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-            
+            print("Image manipulated")
             # file_name = default_storage.save(filename,file)
 
         hashofImg = handler.hash_function(image)
