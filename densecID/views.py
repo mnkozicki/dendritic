@@ -53,6 +53,7 @@ def post1(request):
 #     return HttpResponse("Hello World")
 
 def post2(request):
+    print("post 2 called")
     handler = Operations.Operations()
     if request.method == 'POST':
         if request.FILES['file']:
