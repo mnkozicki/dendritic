@@ -50,7 +50,7 @@ def post1(request):
             print("No match found")
             msg = {"Match":"-1"}
             return HttpResponse(json.dumps(msg))
-    return HttpResponse("Hello World")
+#     return HttpResponse("Hello World")
 
 def post2(request):
     handler = Operations.Operations()
@@ -90,7 +90,7 @@ def post2(request):
             print("Match Found")
             msg = {"Match":"-1"}
             return HttpResponse(json.dumps(msg))
-    return HttpResponse("Post2")
+#     return HttpResponse("Post2")
 
 def post3(request):
     handler = Operations.Operations()
