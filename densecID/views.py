@@ -15,7 +15,7 @@ import json
 
 def post1(request):
     handler = Operations.Operations()
-    print("post1 called")
+    print("Scan called")
     if request.method == 'POST':
         if request.FILES['file']:
             file = request.FILES['file']
@@ -53,15 +53,15 @@ def post1(request):
 #     return HttpResponse("Hello World")
 
 def post2(request):
-    print("post 2 called")
+    print("Register called")
     handler = Operations.Operations()
     if request.method == 'POST':
         if request.FILES['file']:
-            print("Log: File received")
+            
             file = request.FILES['file']
         else:
             msg = "No file sent"
-            print("Log: No file sent")
+            
             return HttpResponse(json.dumps(msg))
         brand = request.POST.get("brnd")
         disc = request.POST.get("disc")
@@ -71,13 +71,13 @@ def post2(request):
         
         if file:
             # flname = secure_filename(file.filename)
-            print("Log: Image file exists")
+            
             image = cv2.imdecode(np.frombuffer(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
             image = cv2.rotate(image,rotateCode=cv2.ROTATE_90_CLOCKWISE)
             resizeDIm = (int(image.shape[1]*20/100),int(image.shape[0]*20/100))
             image = cv2.resize(image,resizeDIm,interpolation=cv2.INTER_AREA)
             image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-            print("Image manipulated")
+            
             # file_name = default_storage.save(filename,file)
 
         hashofImg = handler.hash_function(image)
@@ -97,6 +97,7 @@ def post2(request):
 #     return HttpResponse("Post2")
 
 def post3(request):
+    print("Update Called")
     handler = Operations.Operations()
     if request.method == "POST":
 
@@ -109,7 +110,7 @@ def post3(request):
         task=[id,brand,disc,cat,mfg,exp]
         handler.update_info(task)
         print("Record Updated")
-        print(id)
+        
         data = handler.select_match(id)
         print(data[4]+" "+data[5])
         msg = {"Match":"3", 
